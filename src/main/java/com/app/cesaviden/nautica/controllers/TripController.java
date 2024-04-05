@@ -25,6 +25,16 @@ public class TripController {
         return ResponseEntity.ok(tripService.getAllTrips());
     }
 
+    @GetMapping("/boat/{boatId}")
+    public ResponseEntity<List<TripEntity>> getAllTripsByBoatId(@PathVariable Integer boatId) {
+        return ResponseEntity.ok(tripService.getAllTripsByBoatId(boatId));
+    }
+
+    @GetMapping("/patron/{patronId}")
+    public ResponseEntity<List<TripEntity>> getAllTripsByPatronId(@PathVariable Integer patronId) {
+        return ResponseEntity.ok(tripService.getAllTripsByPatronId(patronId));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TripEntity> getTripById(@PathVariable Integer id) {
         return ResponseEntity.ok(tripService.getTripById(id));

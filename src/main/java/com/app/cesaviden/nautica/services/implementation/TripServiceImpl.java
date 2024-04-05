@@ -55,4 +55,16 @@ public class TripServiceImpl implements TripService {
         tripRepository.deleteById(id);
     }
 
+    @Override
+    public List<TripEntity> getAllTripsByBoatId(Integer boatId) {
+
+        return tripRepository.findAllByBoatId(boatId);
+    }
+
+    @Override
+    public List<TripEntity> getAllTripsByPatronId(Integer patronId) {
+
+        return tripRepository.findAllByPatronId(patronId);
+    }
+
 }

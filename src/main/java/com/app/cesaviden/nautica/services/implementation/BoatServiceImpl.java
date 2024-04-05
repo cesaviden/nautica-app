@@ -51,4 +51,10 @@ public class BoatServiceImpl implements BoatService {
     public void deleteBoat(Integer id) {
         boatRepository.deleteById(id);
     }
+
+    @Override
+    public List<BoatEntity> getBoatsByOwnerId(Integer ownerId) {
+        
+        return boatRepository.findAllByOwnerId(ownerId);
+    }
 }

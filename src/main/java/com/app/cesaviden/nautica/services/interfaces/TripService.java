@@ -10,6 +10,8 @@ public interface TripService {
     TripEntity updateTrip(Integer id, TripEntity TripEntity);
     TripEntity getTripById(Integer id);
     List<TripEntity> getAllTrips();
+    List<TripEntity> getAllTripsByBoatId(Integer boatId);
+    List<TripEntity> getAllTripsByPatronId(Integer patronId);
     void deleteTrip(Integer id);
 
 }
