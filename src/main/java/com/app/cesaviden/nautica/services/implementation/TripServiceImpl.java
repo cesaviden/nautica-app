@@ -24,15 +24,15 @@ public class TripServiceImpl implements TripService {
     @Override
     public TripEntity updateTrip(Integer id, TripEntity TripEntity) {
 
-        TripEntity existingTrip = tripRepository.findById(id).orElse(null);
-        if (existingTrip != null) {
-            existingTrip.setBoat(TripEntity.getBoat());
-            existingTrip.setCaptainName(TripEntity.getCaptainName());
-            existingTrip.setDepartureDateTime(TripEntity.getDepartureDateTime());
-            existingTrip.setDestination(TripEntity.getDestination());
-            return tripRepository.save(existingTrip);
+        if (tripRepository.existsById(id)) {
+            TripEntity existingTrip = tripRepository.findById(id).orElse(null);
+            if (existingTrip != null) {
+                existingTrip.setBoat(TripEntity.getBoat());
+                existingTrip.setDepartureDateTime(TripEntity.getDepartureDateTime());
+                existingTrip.setPatron(TripEntity.getPatron());
+                return tripRepository.save(existingTrip);
+            }
         }
-
         return null;
 
     }

@@ -1,6 +1,10 @@
 package com.app.cesaviden.nautica.entities;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +40,7 @@ public class TripEntity {
 
     @ManyToOne
     @JoinColumn(name = "boat_id", nullable = false)
+    @JsonBackReference
     private BoatEntity boat;
 
     @Column(nullable = false)
@@ -49,8 +54,8 @@ public class TripEntity {
     @Size(max = 255, message = "The destination cannot have more than 255 characters")
     private String destination;
 
-    @Column(nullable = false)
-    @NotBlank(message = "The name of the captain is required")
-    @Size(max = 100, message = "The name of the captain cannot have more than 100 characters")
-    private String captainName;
+    @ManyToOne
+    @JoinColumn(name = "patron_id", nullable = false)
+    @JsonBackReference
+    private PatronEntity patron;
 }

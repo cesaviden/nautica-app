@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ public class BoatController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BoatEntity> getBoatById(@RequestParam Integer id) {
+    public ResponseEntity<BoatEntity> getBoatById(@PathVariable Integer id) {
         return ResponseEntity.ok(boatService.getBoatById(id));
     }
 
@@ -42,13 +43,13 @@ public class BoatController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BoatEntity> updateBoat(@RequestParam  Integer id, @RequestParam @Valid BoatEntity boatEntity) {
+    public ResponseEntity<BoatEntity> updateBoat(@PathVariable  Integer id, @RequestParam @Valid BoatEntity boatEntity) {
 
         return ResponseEntity.ok(boatService.updateBoat(id, boatEntity));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBoat(@RequestParam Integer id) {
+    public ResponseEntity<Void> deleteBoat(@PathVariable Integer id) {
 
         boatService.deleteBoat(id);
         return ResponseEntity.ok().build();

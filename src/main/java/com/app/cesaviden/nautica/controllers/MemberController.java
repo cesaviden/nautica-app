@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.app.cesaviden.nautica.entities.MemberEntity;
@@ -14,6 +15,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/members")
+@Validated
 public class MemberController {
 
     @Autowired
@@ -25,7 +27,7 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MemberEntity> getMemberById(@RequestParam Integer id) {
+    public ResponseEntity<MemberEntity> getMemberById(@PathVariable Integer id) {
         return ResponseEntity.ok(memberService.getMemberById(id));
     }
     
@@ -35,12 +37,12 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MemberEntity> updateMember(@RequestParam Integer id, @RequestBody @Valid  MemberEntity memberEntity) {
+    public ResponseEntity<MemberEntity> updateMember(@PathVariable Integer id, @RequestBody @Valid  MemberEntity memberEntity) {
         return ResponseEntity.ok(memberService.updateMember(id, memberEntity));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMember(@RequestParam Integer id) {
+    public ResponseEntity<Void> deleteMember(@PathVariable Integer id) {
         memberService.deleteMember(id);
         return ResponseEntity.ok().build();
     }

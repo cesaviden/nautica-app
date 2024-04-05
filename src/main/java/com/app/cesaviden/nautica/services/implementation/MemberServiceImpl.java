@@ -26,6 +26,7 @@ public class MemberServiceImpl implements MemberService {
         if (existingMember != null) {
             existingMember.setName(MemberEntity.getName());
             existingMember.setAddress(MemberEntity.getAddress());
+            existingMember.setDni(MemberEntity.getDni());
             existingMember.setPhone(MemberEntity.getPhone());
             existingMember.setEmail(MemberEntity.getEmail());
             return memberRepository.save(existingMember);
