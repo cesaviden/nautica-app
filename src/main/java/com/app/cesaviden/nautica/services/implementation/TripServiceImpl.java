@@ -67,4 +67,10 @@ public class TripServiceImpl implements TripService {
         return tripRepository.findAllByPatronId(patronId);
     }
 
+    @Override
+    public TripEntity addPatronAndBoatToTrip(TripEntity tripEntity, Integer patronId, Integer boatId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addPatronAndBoatToTrip'");
+    }
+
 }

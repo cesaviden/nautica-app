@@ -51,7 +51,7 @@ public class BoatEntity {
     private Integer fee;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
+    @JoinColumn(name = "owner_id", nullable = true)
     @JsonIgnore
     private MemberEntity owner;
 }

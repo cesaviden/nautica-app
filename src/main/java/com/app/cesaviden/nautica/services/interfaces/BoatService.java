@@ -12,4 +12,5 @@ public interface BoatService {
     List<BoatEntity> getAllBoats();
     void deleteBoat(Integer id);
     List<BoatEntity> getBoatsByOwnerId(Integer ownerId);
+    BoatEntity addOwnerToBoat(Integer boatId, Integer ownerId);
 }

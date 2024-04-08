@@ -13,5 +13,5 @@ public interface TripService {
     List<TripEntity> getAllTripsByBoatId(Integer boatId);
     List<TripEntity> getAllTripsByPatronId(Integer patronId);
     void deleteTrip(Integer id);
-
+    TripEntity addPatronAndBoatToTrip(TripEntity tripEntity, Integer patronId, Integer boatId);
 }

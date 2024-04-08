@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.cesaviden.nautica.entities.BoatEntity;
+import com.app.cesaviden.nautica.entities.MemberEntity;
 import com.app.cesaviden.nautica.repositories.BoatRepository;
+import com.app.cesaviden.nautica.repositories.MemberRepository;
 import com.app.cesaviden.nautica.services.interfaces.BoatService;
 
 @Service
@@ -14,6 +16,9 @@ public class BoatServiceImpl implements BoatService {
 
     @Autowired
     private BoatRepository boatRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Override
     public List<BoatEntity> getAllBoats() {
@@ -29,6 +34,19 @@ public class BoatServiceImpl implements BoatService {
     public BoatEntity createBoat(BoatEntity boatEntity) {
         return boatRepository.save(boatEntity);
     }
+
+    @Override
+    public BoatEntity addOwnerToBoat(Integer boatId, Integer ownerId) {
+
+        BoatEntity existingBoat = boatRepository.findById(boatId).orElse(null);
+        MemberEntity owner = memberRepository.findById(ownerId).orElse(null);
+
+        if (existingBoat != null) {
+            existingBoat.setOwner(owner);
+            return boatRepository.save(existingBoat);
+    } 
+        return null;
+}
 
     @Override
     public BoatEntity updateBoat(Integer id, BoatEntity boatEntity) {
@@ -54,7 +72,7 @@ public class BoatServiceImpl implements BoatService {
 
     @Override
     public List<BoatEntity> getBoatsByOwnerId(Integer ownerId) {
-        
+
         return boatRepository.findAllByOwnerId(ownerId);
     }
 }

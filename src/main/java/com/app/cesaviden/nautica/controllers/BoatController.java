@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/boats")
@@ -28,36 +28,72 @@ public class BoatController {
     private BoatServiceImpl boatService;
 
     @GetMapping
-    public ResponseEntity<List<BoatEntity>> getAllBoats() {
-        return ResponseEntity.ok(boatService.getAllBoats());
+    public ResponseEntity<?> getAllBoats() {
+        try {
+            List<BoatEntity> boats = boatService.getAllBoats();
+            return ResponseEntity.ok(boats);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching boats: " + e.getMessage());
+        }
     }
 
     @GetMapping("/owner/{ownerId}")
-    public ResponseEntity<List<BoatEntity>> getBoatsByOwnerId(@PathVariable Integer ownerId) {
-        return ResponseEntity.ok(boatService.getBoatsByOwnerId(ownerId));
+    public ResponseEntity<?> getBoatsByOwnerId(@PathVariable Integer ownerId) {
+        try {
+            List<BoatEntity> boats = boatService.getBoatsByOwnerId(ownerId);
+            return ResponseEntity.ok(boats);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching boats by owner ID: " + e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BoatEntity> getBoatById(@PathVariable Integer id) {
-        return ResponseEntity.ok(boatService.getBoatById(id));
+    public ResponseEntity<?> getBoatById(@PathVariable Integer id) {
+        try {
+            BoatEntity boat = boatService.getBoatById(id);
+            return ResponseEntity.ok(boat);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching boat by ID: " + e.getMessage());
+        }
     }
 
     @PostMapping
-    public ResponseEntity<BoatEntity> createBoat(@RequestBody @Valid BoatEntity boatEntity) {
-        return ResponseEntity.ok(boatService.createBoat(boatEntity));
+    public ResponseEntity<?> createBoat(@RequestBody @Valid BoatEntity boatEntity) {
+        try {
+            BoatEntity createdBoat = boatService.createBoat(boatEntity);
+            return ResponseEntity.ok("Boat created successfully with ID: " + createdBoat.getId());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error creating boat: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/{id}/owner/{ownerId}")
+    public ResponseEntity<?> addOwnerToBoat(@PathVariable Integer id, @PathVariable Integer ownerId) {
+        try {
+            boatService.addOwnerToBoat(id, ownerId);
+            return ResponseEntity.ok("Owner added to boat successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error adding owner to boat: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BoatEntity> updateBoat(@PathVariable  Integer id, @RequestParam @Valid BoatEntity boatEntity) {
-
-        return ResponseEntity.ok(boatService.updateBoat(id, boatEntity));
+    public ResponseEntity<?> updateBoat(@PathVariable Integer id, @RequestBody @Valid BoatEntity boatEntity) {
+        try {
+            BoatEntity updatedBoat = boatService.updateBoat(id, boatEntity);
+            return ResponseEntity.ok("Boat updated successfully with ID: " + updatedBoat.getId());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating boat: " + e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBoat(@PathVariable Integer id) {
-
-        boatService.deleteBoat(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> deleteBoat(@PathVariable Integer id) {
+        try {
+            boatService.deleteBoat(id);
+            return ResponseEntity.ok("Boat deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error deleting boat: " + e.getMessage());
+        }
     }
-
 }
