@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -42,8 +43,7 @@ public class BoatController {
     }
 
     @PostMapping
-    public ResponseEntity<BoatEntity> createBoat(@RequestParam @Valid BoatEntity boatEntity) {
-
+    public ResponseEntity<BoatEntity> createBoat(@RequestBody @Valid BoatEntity boatEntity) {
         return ResponseEntity.ok(boatService.createBoat(boatEntity));
     }
 

@@ -59,25 +59,17 @@ public class BoatRepositoryTests {
     @Order(3)
     @Rollback(false)
     public void testUpdateBoatById() {
-        // Obtener el barco de la base de datos antes de la actualización
         BoatEntity boatBeforeUpdate = boatRepository.findById(1).orElse(null);
 
-        // Comprobar que el barco existe antes de la actualización
         assertNotNull(boatBeforeUpdate, "The boat exists before the update.");
-
-        // Realizar la actualización del barco
-        // Supongamos que se actualiza el nombre del barco
 
         boatBeforeUpdate.setName("test2");
         boatRepository.save(boatBeforeUpdate);
 
-        // Volver a obtener el barco de la base de datos después de la actualización
         BoatEntity boatAfterUpdate = boatRepository.findById(1).orElse(null);
 
-        // Comprobar que el barco existe después de la actualización
         assertNotNull(boatAfterUpdate, "The boat exists after the update.");
 
-        // Comparar los atributos del barco antes y después de la actualización
         assertEquals(boatBeforeUpdate.getName(), boatAfterUpdate.getName(),
                 "The name of the boat was updated correctly.");
 
@@ -89,8 +81,28 @@ public class BoatRepositoryTests {
         assertTrue(boatRepository.findAllByOwnerId(1).size() > 0);
     }
 
+
     @Test
     @Order(5)
+    public void testGetBoatByName() {
+        assertTrue(boatRepository.findByName("test2").size() > 0);
+    }
+
+
+    @Test
+    @Order(6)
+    public void testGetBoatByMooringNumber() {
+        assertTrue(boatRepository.findByMooringNumber(1).size() > 0);
+    }
+
+    @Test
+    @Order(7)
+    public void testGetAllBoatsGreaterThanFee() {
+        assertTrue(boatRepository.findByFeeGreaterThan(0).size() > 0);
+    }
+
+    @Test
+    @Order(8)
     public void testDeleteBoatById() {
         boatRepository.deleteById(1);
         assertTrue(boatRepository.findById(1).isEmpty());

@@ -1,6 +1,8 @@
 package com.app.cesaviden.nautica.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,7 +36,7 @@ public class BoatEntity {
 
     @NotBlank(message = "The registration number is required")
     @Size(min = 6, max = 10, message = "The registration number must have between 6 and 10 characters")
-    @Column(nullable = false, unique = true)
+    @Column(name = "registration_number", nullable = false, unique = true)
     private String registrationNumber;
 
     @NotBlank(message = "The name is required")
@@ -50,6 +52,6 @@ public class BoatEntity {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
-    @JsonBackReference
+    @JsonIgnore
     private MemberEntity owner;
 }

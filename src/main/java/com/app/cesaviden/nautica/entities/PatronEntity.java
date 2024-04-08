@@ -1,10 +1,7 @@
 package com.app.cesaviden.nautica.entities;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +28,6 @@ public class PatronEntity extends PersonEntity {
     private Integer id;
 
     @OneToMany(mappedBy = "patron")
-    @JsonManagedReference
+    @JsonIgnore
     private List<TripEntity> trips;
 }

@@ -1,15 +1,12 @@
 package com.app.cesaviden.nautica.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import com.app.cesaviden.nautica.entities.MemberEntity;
 import com.app.cesaviden.nautica.services.implementation.MemberServiceImpl;
-
 import jakarta.validation.Valid;
 
 

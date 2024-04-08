@@ -47,13 +47,7 @@ public class TripRepositoryTests {
         TripEntity.setBoat(boat);
         TripEntity.setPatron(patron);
         TripEntity.setDestination("Barcelona");
-
-        // Convert the String to LocalDateTime
-        String departureDateTimeString = "2022-01-01 10:00:00";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime departureDateTime = LocalDateTime.parse(departureDateTimeString, formatter);
-
-        TripEntity.setDepartureDateTime(departureDateTime);
+        TripEntity.setDepartureDateTime(LocalDateTime.now().plusHours(1));
 
         assertTrue(tripRepository.save(TripEntity) != null);
     }
@@ -78,6 +72,12 @@ public class TripRepositoryTests {
 
     @Test
     @Order(5)
+    public void testGetTripBetweenTwoDates() {
+        assertTrue(tripRepository.findByDepartureDateTimeBetween(LocalDateTime.now(), LocalDateTime.now().plusDays(1)).size() > 0);
+    }
+
+    @Test
+    @Order(6)
     @Rollback(false)
     public void testUpdateTripById() {
         TripEntity trip = tripRepository.findById(1).orElse(null);
@@ -91,7 +91,7 @@ public class TripRepositoryTests {
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     public void testDeleteTripById() {
         TripEntity trip = tripRepository.findById(1).orElse(null);
         assertNotNull(trip, "The trip exists before the deletion.");

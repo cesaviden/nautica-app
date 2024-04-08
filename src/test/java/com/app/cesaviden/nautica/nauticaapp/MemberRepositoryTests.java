@@ -65,7 +65,6 @@ public class MemberRepositoryTests {
 
     @Test
     @Order(4)
-    @Rollback(false)
     public void testDeleteMemberById() {
         memberRepository.deleteById(1);
         assertTrue(memberRepository.findById(1).isEmpty());

@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Getter
@@ -28,7 +28,7 @@ public class MemberEntity extends PersonEntity {
     private Integer id;
 
     @OneToMany(mappedBy = "owner")
-    @JsonManagedReference
+    @JsonIgnore
     private List<BoatEntity> boats;
 
 }
