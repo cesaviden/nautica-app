@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.cesaviden.nautica.controllers.dto.BoatCreationRequestDTO;
 import com.app.cesaviden.nautica.entities.BoatEntity;
 import com.app.cesaviden.nautica.entities.MemberEntity;
 import com.app.cesaviden.nautica.repositories.BoatRepository;
@@ -31,8 +32,8 @@ public class BoatServiceImpl implements BoatService {
     }
 
     @Override
-    public BoatEntity createBoat(BoatEntity boatEntity) {
-        return boatRepository.save(boatEntity);
+    public BoatEntity createBoat(BoatCreationRequestDTO boatRequest) {
+        return boatRepository.save(BoatEntity.builder().name(boatRequest.name()).registrationNumber(boatRequest.registrationNumber()).mooringNumber(boatRequest.mooringNumber()).fee(boatRequest.fee()).owner(memberRepository.findById(boatRequest.ownerId()).orElse(null)).build());
     }
 
     @Override
@@ -74,5 +75,20 @@ public class BoatServiceImpl implements BoatService {
     public List<BoatEntity> getBoatsByOwnerId(Integer ownerId) {
 
         return boatRepository.findAllByOwnerId(ownerId);
+    }
+
+    @Override
+    public List<BoatEntity> getBoatByName(String name) {
+        return boatRepository.findByName(name);
+    }
+
+    @Override
+    public List<BoatEntity> getBoatByMooringNumber(Integer mooringNumber) {
+        return boatRepository.findByMooringNumber(mooringNumber);
+    }
+
+    @Override
+    public List<BoatEntity> getBoatWithFeeGreaterThan(Integer fee) {
+        return boatRepository.findByFeeGreaterThan(fee);
     }
 }

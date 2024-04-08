@@ -38,7 +38,7 @@ public class TripEntity {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "boat_id", nullable = false)
+    @JoinColumn(name = "boat_id", nullable = true)
     @JsonIgnore
     private BoatEntity boat;
 

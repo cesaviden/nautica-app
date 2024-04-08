@@ -14,7 +14,6 @@ public interface BoatRepository extends JpaRepository<BoatEntity, Integer> {
 
     // Método para obtener un barco por su nombre
     List<BoatEntity> findByName(String name);
-
     // Método para obtener todos los barcos por su número de amarre
     List<BoatEntity> findByMooringNumber(Integer mooringNumber);
 

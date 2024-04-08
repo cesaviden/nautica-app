@@ -55,7 +55,7 @@ class NauticaAppApplicationTests {
 		when(boatService.getAllBoats()).thenReturn(boats);
 
 		// Llamar al método del controlador que devuelve la lista de barcos
-		List<BoatEntity> returnedBoats = boatController.getAllBoats().getBody();
+		List<BoatEntity> returnedBoats = (List<BoatEntity>) boatController.getAllBoats().getBody();
 
 		// Verificar si la lista de barcos devuelta tiene más de 0 elementos
 		assertTrue(returnedBoats.size() > 0);
